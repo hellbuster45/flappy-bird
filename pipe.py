@@ -6,7 +6,7 @@ class Pipe(po.sprite.Sprite):
         this.image = po.image.load(r'assets\pipe - Copy.png').convert_alpha()
         this.rect = this.image.get_rect()
         this.rect.topleft = (x, y)
-        pipe_gap = 150
+        pipe_gap = 130
         if location == -1:
             this.image = po.transform.flip(this.image, False, True)
             this.rect.bottomleft = (x, y - pipe_gap // 2)

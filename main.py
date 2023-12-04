@@ -13,13 +13,37 @@ def display_text(text, font, color, x, y):
     img = font.render(text, True, color)
     screen.blit(img, (x, y))
 
+def reset_game():
+    gd.pipe_group.empty()
+    player = player = Player(100, 200)
+    score = 0
+    restart = False
+    return player, score, restart
+
+class Button:
+    def __init__(this, x, y):
+        this.image = po.image.load(r'assets\restart1.png')
+        this.rect = this.image.get_rect()
+        this.rect.center = (x, y)
+        this.restart = False
+    
+    def draw(this):
+        pos = po.mouse.get_pos()
+
+        if this.rect.collidepoint(pos):
+            if po.mouse.get_pressed()[0]:
+                this.restart = True
+        screen.blit(this.image, this.rect)
+        return this.restart
+        
+
 def main():
     clock = po.time.Clock()
     last_time = po.time.get_ticks() - gd.pipe_freq
     
     bg = Background(screen)
     player = Player(100, 200)
-    
+    restart_button = Button(gd.width // 2, gd.height // 2)
     run = True
     score = 0
     scroll_speed = -4
@@ -65,14 +89,19 @@ def main():
                     if pipe.rect.right < 0:
                         pipe.kill()
                     
-                    if pipe.rect.left < player.rect.right < pipe.rect.right + 3:
+                    if pipe.rect.left < player.rect.right < pipe.rect.right + 5:
                         if player.rect.right > pipe.rect.right:
                             score += 1
+                            print(score)
                 gd.pipe_group.draw(screen)
-                gd.pipe_group.update(scroll_speed)
+                gd.pipe_group.update(scroll_speed - 1)
                     
             else:
                 player.alive = False
+                restart_button.draw()
+                
+                if restart_button.draw():
+                    player, score ,restart_button.restart = reset_game()
             display_text(str(score // 2), font, (0, 255, 0), gd.width // 2, 20)
         
         for event in po.event.get():
@@ -84,7 +113,10 @@ def main():
                         start_game = True
                     flying = True
                     player.jump = True
-            
+                if event.key == po.K_f:
+                    if not player.alive:
+                        restart_button.restart = True
+                
             if event.type == po.KEYUP:
                 if event.key in (po.K_SPACE, po.K_UP, po.K_z):
                     player.jump = False
