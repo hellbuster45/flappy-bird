@@ -95,11 +95,12 @@ def main():
                             print(score)
                 gd.pipe_group.draw(screen)
                 gd.pipe_group.update(scroll_speed - 1)
-                    
             else:
                 player.alive = False
                 restart_button.draw()
-                
+                display_text('Click to restart', menu_font_medium, (255, 255, 0), 245, 350)
+                display_text('OR', menu_font_medium, (255, 255, 0), 370, 400)
+                display_text('Press F to restart !!', menu_font_medium, (255, 255, 0), 210, 450)
                 if restart_button.draw():
                     player, score ,restart_button.restart = reset_game()
             display_text(str(score // 2), font, (0, 255, 0), gd.width // 2, 20)
