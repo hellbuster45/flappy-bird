@@ -1,5 +1,5 @@
 # Flappy Bird
-made a flappy bird clone jus for practice, nuthin special :)
+made a flappy bird clone jus for practice, nuthin special, also making an infinite parallax scrolling background was an accomplishment for me :)
 ***********************
 ### Libraries used:
 - Pygame
