@@ -34,8 +34,7 @@ def main():
         screen.fill((50, 50, 50))
         
         if start_game == False:
-            print('press space or UP arrow to start: ')
-            bg.draw(-4)
+            bg.draw(0)
             display_text('FLAPPY BIRD', menu_font, (20, 194, 194), 100, 30)
             screen.blit(player.image, player.rect)
             player.update_animation()
@@ -47,10 +46,9 @@ def main():
                 flying = False
             
             screen.blit(player.image, player.rect)
-            
-            if player.rect.bottom < gd.height and flying == True:
+            player.move()
+            if player.alive:
                 player.update_animation()
-                player.move()
                 scroll_speed = -4
                 
                 current_time = po.time.get_ticks()
@@ -73,7 +71,7 @@ def main():
                 gd.pipe_group.draw(screen)
                 gd.pipe_group.update(scroll_speed)
                     
-            elif player.rect.bottom >= gd.height:
+            else:
                 player.alive = False
             display_text(str(score // 2), font, (0, 255, 0), gd.width // 2, 20)
         

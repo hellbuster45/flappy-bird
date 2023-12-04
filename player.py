@@ -35,10 +35,12 @@ class Player(po.sprite.Sprite):
     
     def move(this):
         dy = 0
-        
-        if this.jump and (this.pressed == False):
-            this.y_velocity = -7
-            this.pressed = True
+        if this.alive:    
+            if this.jump and (this.pressed == False):
+                this.y_velocity = -7
+                this.pressed = True
+        else:
+            this.image = po.transform.rotate(this.sprites[this.frame_index], -90)
             
         this.y_velocity += gd.gravity
         dy += this.y_velocity
@@ -48,7 +50,8 @@ class Player(po.sprite.Sprite):
             
         if this.rect.bottom < gd.height:
             this.rect.y += dy
-            
+        else:
+            this.alive = False
         if this.y_velocity > 50:
             this.y_velocity = 0
         
