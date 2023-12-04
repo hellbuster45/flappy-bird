@@ -92,7 +92,6 @@ def main():
                     if pipe.rect.left < player.rect.right < pipe.rect.right + 5:
                         if player.rect.right > pipe.rect.right:
                             score += 1
-                            print(score)
                 gd.pipe_group.draw(screen)
                 gd.pipe_group.update(scroll_speed - 1)
             else:
