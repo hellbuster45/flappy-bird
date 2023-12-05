@@ -38,6 +38,7 @@ class Player(po.sprite.Sprite):
         if this.alive:    
             if this.jump and (this.pressed == False):
                 this.y_velocity = -7
+                gd.jumpfx.play()
                 this.pressed = True
         else:
             this.image = po.transform.rotate(this.sprites[this.frame_index], -90)

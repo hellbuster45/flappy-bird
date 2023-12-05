@@ -6,6 +6,7 @@ from player import Player
 from pipe import Pipe
 
 po.init()
+po.mixer.init()
 screen = po.display.set_mode((gd.width, gd.height))
 po.display.set_caption('Flappy Bird')
 
@@ -40,7 +41,9 @@ class Button:
 def main():
     clock = po.time.Clock()
     last_time = po.time.get_ticks() - gd.pipe_freq
-    
+    po.mixer.music.load('assets\sfx\Blaster Master (NES) Music - Area 3 (320kbps).mp3')
+    po.mixer.music.set_volume(0.3)
+    po.mixer.music.play(-1, 0.0)
     bg = Background(screen)
     player = Player(100, 200)
     restart_button = Button(gd.width // 2, gd.height // 2)
@@ -86,12 +89,14 @@ def main():
                 for pipe in gd.pipe_group:
                     if pipe.rect.colliderect(player.rect):
                         player.alive = False
+                        gd.deathfx.play()
                     if pipe.rect.right < 0:
                         pipe.kill()
                     
                     if pipe.rect.left < player.rect.right < pipe.rect.right + 5:
                         if player.rect.right > pipe.rect.right:
                             score += 1
+                            gd.scorefx.play()
                 gd.pipe_group.draw(screen)
                 gd.pipe_group.update(scroll_speed - 1)
             else:
