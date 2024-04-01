@@ -41,7 +41,7 @@ class Button:
 def main():
     clock = po.time.Clock()
     last_time = po.time.get_ticks() - gd.pipe_freq
-    po.mixer.music.load('assets\sfx\Blaster Master (NES) Music - Area 3 (320kbps).mp3')
+    po.mixer.music.load(r'assets\sfx\Blaster Master (NES) Music - Area 3 (320kbps).mp3')
     po.mixer.music.set_volume(0.3)
     po.mixer.music.play(-1, 0.0)
     bg = Background(screen)
